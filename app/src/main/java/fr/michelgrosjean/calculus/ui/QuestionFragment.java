@@ -29,6 +29,7 @@ import fr.michelgrosjean.calculus.model.Sum3Operation;
 public class QuestionFragment extends Fragment implements View.OnClickListener {
     private TextView txtQuestion;
     private List<Button> buttons;
+    private Difficulty difficulty;
     private int currentIndexOfquestions = 0;
     private int NB_MAX_QUESTION = 5;
 
@@ -39,12 +40,13 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         initView();
+        difficulty = getDifficulty();
         displayQuestions();
     }
 
     private void displayQuestions() {
         QuestionsGenerator questionsGenerator = new QuestionsGenerator();
-        List<Operation> operations = questionsGenerator.generateQuestions(NB_MAX_QUESTION, Difficulty.EASY);
+        List<Operation> operations = questionsGenerator.generateQuestions(NB_MAX_QUESTION, difficulty);
         String strQuestion;
         Operation operation = operations.get(currentIndexOfquestions);
 
@@ -77,6 +79,11 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
                 throw new IllegalArgumentException("Type not supported");
         }
         txtQuestion.setText(strQuestion);
+    }
+
+    private Difficulty getDifficulty(){
+        Bundle arguments = getArguments();
+        return (Difficulty) (arguments != null ? arguments.get("difficulty") : null);
     }
 
     private void initView() {
