@@ -1,6 +1,6 @@
 package fr.michelgrosjean.calculus.model;
 
-public class Substraction2NegativeOperation extends Operation {
+public class Substraction2NegativeOperation extends Substraction2Operation {
     public final int number1, number2;
 
     public Substraction2NegativeOperation(int number1, int number2) {
