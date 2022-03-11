@@ -1,3 +1,12 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Calculus</string>
+    <string name="rules">Règles du jeu</string>
+    <string name="resolve" tools:ignore="Typos">Résolvez les calculs</string>
+    <string name="green_is_good_answer_lbl">Le vert indique la bonne réponse</string>
+    <string name="red_is_wrong_answer_lbl">Le rouge indique une réponse éronnée</string>
+    <string name="difficulty_lbl">Choissisez la difficulté</string>
+    <string name="easy">FACILE</string>
+    <string name="medium">MOYEN</string>
+    <string name="difficult">DIFFICILE</string>
+    <string name="sampleOperation">11 + 9 = ?</string>
 </resources>
