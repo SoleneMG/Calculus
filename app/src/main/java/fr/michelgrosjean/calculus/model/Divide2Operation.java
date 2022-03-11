@@ -4,7 +4,7 @@ public class Divide2Operation extends Operation {
     public final int number1, number2;
 
     public Divide2Operation(int number1, int number2){
-        super(Type.MultiplyOperation);
+        super(Type.Divide2Operation);
 
         this.number1 = number1;
         this.number2 = number2;

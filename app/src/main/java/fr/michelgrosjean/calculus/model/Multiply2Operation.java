@@ -4,7 +4,7 @@ public class Multiply2Operation extends Operation {
     public final int number1, number2;
 
     public Multiply2Operation(int number1, int number2){
-        super(Type.MultiplyOperation);
+        super(Type.Multiply2Operation);
 
         this.number1 = number1;
         this.number2 = number2;
