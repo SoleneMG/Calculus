@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Objects;
 
 import fr.michelgrosjean.calculus.R;
+import fr.michelgrosjean.calculus.domain.AnswersGenerator;
 import fr.michelgrosjean.calculus.domain.QuestionsGenerator;
 import fr.michelgrosjean.calculus.model.Difficulty;
 import fr.michelgrosjean.calculus.model.Divide2Operation;
@@ -30,8 +31,10 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
     private TextView txtQuestion;
     private List<Button> buttons;
     private Difficulty difficulty;
+    private List<Operation> operations;
     private int currentIndexOfquestions = 0;
     private int NB_MAX_QUESTION = 5;
+    private List<Integer> answers = new ArrayList<>();
 
     public QuestionFragment() {
         super(R.layout.question_fragment);
@@ -40,15 +43,30 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         initView();
-        difficulty = getDifficulty();
-        displayQuestions();
+        operations = generateQuestions();
+        displayQuestions(operations.get(currentIndexOfquestions));
+        answers = generateAnswers(operations.get(currentIndexOfquestions));
+        displayAnswers(answers);
+    }
+    private void displayAnswers(List<Integer> answers){
+        for(int i =0; i<buttons.size(); i++){
+            buttons.get(i).setText(String.valueOf(answers.get(i)));
+        }
     }
 
-    private void displayQuestions() {
+    private List<Integer> generateAnswers(Operation operation){
+        AnswersGenerator answersGenerator = new AnswersGenerator(operation);
+        return answersGenerator.generateAnswers();
+    }
+
+    private  List<Operation> generateQuestions(){
+        difficulty = getDifficulty();
         QuestionsGenerator questionsGenerator = new QuestionsGenerator();
-        List<Operation> operations = questionsGenerator.generateQuestions(NB_MAX_QUESTION, difficulty);
+        return questionsGenerator.generateQuestions(NB_MAX_QUESTION, difficulty);
+    }
+
+    private void displayQuestions(Operation operation) {
         String strQuestion;
-        Operation operation = operations.get(currentIndexOfquestions);
 
         switch (operation.type) {
             case Sum2Operation:
@@ -97,7 +115,6 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
         answer3.setOnClickListener(this);
         answer4.setOnClickListener(this);
         buttons = new ArrayList<>(Arrays.asList(answer1, answer2, answer3, answer4));
-        txtQuestion.setText("test");
     }
 
     @Override
@@ -116,7 +133,9 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
         final Handler handler = new Handler();
         handler.postDelayed(() -> {
             if (!(currentIndexOfquestions >= NB_MAX_QUESTION)) {
-                displayQuestions();
+                displayQuestions(operations.get(currentIndexOfquestions));
+                answers = generateAnswers(operations.get(currentIndexOfquestions));
+                displayAnswers(answers);
             } else {
                 txtQuestion.setText("FIN");
             }

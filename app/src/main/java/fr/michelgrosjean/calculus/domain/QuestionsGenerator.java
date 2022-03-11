@@ -88,14 +88,12 @@ public class QuestionsGenerator {
     }
 
     private Substraction2Operation generateSubstraction2Operation(int minNumber1, int maxNumber1, int minNumber2, int maxNumber2, boolean isPositiveOperation) {
+        int number1 = NumberRandom.generate(minNumber1, maxNumber1);
+        int number2 = NumberRandom.generate(minNumber2, maxNumber2);
         if (!isPositiveOperation) {
-            return new Substraction2NegativeOperation(
-                    Math.min(NumberRandom.generate(minNumber1, maxNumber1), NumberRandom.generate(minNumber2, maxNumber2))
-                    , Math.max(NumberRandom.generate(minNumber1, maxNumber1), NumberRandom.generate(minNumber2, maxNumber2)));
+            return new Substraction2NegativeOperation(Math.min(number1, number2), Math.max(number1,number2));
         } else {
-            return new Substraction2PositiveOperation(
-                    Math.max(NumberRandom.generate(minNumber1, maxNumber1), NumberRandom.generate(minNumber2, maxNumber2))
-                    , Math.min(NumberRandom.generate(minNumber1, maxNumber1), NumberRandom.generate(minNumber2, maxNumber2)));
+            return new Substraction2PositiveOperation(Math.max(number1, number2), Math.min(number1,number2));
         }
     }
 
@@ -113,6 +111,4 @@ public class QuestionsGenerator {
     private Sum3Operation generateSum3Operation(int minNumber1, int maxNumber1, int minNumber2, int maxNumber2, int minNumber3, int maxNumber3) {
         return new Sum3Operation(NumberRandom.generate(minNumber1, maxNumber1), NumberRandom.generate(minNumber2, maxNumber2), NumberRandom.generate(minNumber3, maxNumber3));
     }
-
-
 }
