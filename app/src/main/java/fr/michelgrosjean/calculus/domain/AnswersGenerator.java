@@ -46,7 +46,7 @@ public class AnswersGenerator {
         return numbers;
     }
 
-    private int compute() {
+    public int compute() {
         switch (operation.type) {
             case Sum2Operation:
                 Sum2Operation opSum = (Sum2Operation) operation;

@@ -1,5 +1,6 @@
 package fr.michelgrosjean.calculus.ui;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
@@ -35,6 +37,8 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
     private int currentIndexOfquestions = 0;
     private int NB_MAX_QUESTION = 5;
     private List<Integer> answers = new ArrayList<>();
+    private int result;
+    private int score = 0;
 
     public QuestionFragment() {
         super(R.layout.question_fragment);
@@ -56,6 +60,7 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
 
     private List<Integer> generateAnswers(Operation operation){
         AnswersGenerator answersGenerator = new AnswersGenerator(operation);
+        result = answersGenerator.compute();
         return answersGenerator.generateAnswers();
     }
 
@@ -120,15 +125,20 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
 
-        if (view.getId() == R.id.answer1) {
-
-        } else if (view.getId() == R.id.answer2) {
-
-        } else if (view.getId() == R.id.answer3) {
-
-        } else if (view.getId() == R.id.answer4) {
-
-        }
+        if(view.getId() == R.id.answer1){
+            checkAnswer(buttons.get(0));
+        } else if(view.getId() == R.id.answer2){
+            checkAnswer(buttons.get(1));
+        } else if(view.getId() == R.id.answer3){
+            checkAnswer(buttons.get(2));
+        } else if(view.getId() == R.id.answer4){
+            checkAnswer(buttons.get(3));}
+        nextQuestion();
+    }
+/*
+I use an handler to have time to vizualise if answer is correct
+ */
+    private void nextQuestion(){
         currentIndexOfquestions++;
         final Handler handler = new Handler();
         handler.postDelayed(() -> {
@@ -136,9 +146,22 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
                 displayQuestions(operations.get(currentIndexOfquestions));
                 answers = generateAnswers(operations.get(currentIndexOfquestions));
                 displayAnswers(answers);
+
             } else {
                 txtQuestion.setText("FIN");
             }
-        }, 10);
+            for (Button button : buttons) {
+                button.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.purple_200));
+            }
+        }, 500);
+    }
+
+    private void checkAnswer(Button button){
+        if(button.getText().equals(String.valueOf(result))){
+            button.setBackgroundColor(Color.GREEN);
+            score++;
+        } else {
+            button.setBackgroundColor(Color.RED);
+        }
     }
 }
