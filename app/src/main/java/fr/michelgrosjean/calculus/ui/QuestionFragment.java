@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Objects;
 
 import fr.michelgrosjean.calculus.R;
+import fr.michelgrosjean.calculus.domain.QuestionsGenerator;
 
 public class QuestionFragment extends Fragment implements View.OnClickListener{
     private TextView txtQuestion;
