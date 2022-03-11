@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import fr.michelgrosjean.calculus.domain.utils.NumberRandom;
+import fr.michelgrosjean.calculus.model.Difficulty;
 import fr.michelgrosjean.calculus.model.Divide2Operation;
 import fr.michelgrosjean.calculus.model.Multiply2Operation;
 import fr.michelgrosjean.calculus.model.Operation;
@@ -20,7 +21,25 @@ public class QuestionsGenerator {
     private final List<Operation.Type> hardOperations = new ArrayList<>(Arrays.asList(Operation.Type.Sum3Operation, Operation.Type.Multiply2Operation, Operation.Type.Divide2Operation));
 
 
-    public Operation generateEasyOperation() {
+    public List<Operation> generateQuestions (int numberMaxQuestion, Difficulty difficulty) {
+        List<Operation> operations = new ArrayList<>();
+        for (int i = 0; i < numberMaxQuestion; i++) {
+            switch (difficulty){
+                case EASY:
+                    operations.add(generateEasyOperation());
+                    break;
+                case MEDIUM:
+                    operations.add(generateMediumOperation());
+                    break;
+                case HARD:
+                    operations.add(generateHardOperation());
+                    break;
+            }
+        }
+        return operations;
+    }
+
+    private Operation generateEasyOperation() {
         int index = NumberRandom.generate(0, easyOperations.size());
         switch (easyOperations.get(index)) {
             case Sum2Operation:
@@ -32,7 +51,7 @@ public class QuestionsGenerator {
         }
     }
 
-    public Operation generateMediumOperation() {
+    private Operation generateMediumOperation() {
         int index = NumberRandom.generate(0, mediumOperations.size());
         switch (mediumOperations.get(index)) {
             case Sum3Operation:
@@ -48,7 +67,7 @@ public class QuestionsGenerator {
         }
     }
 
-    public Operation generateHardOperation() {
+    private Operation generateHardOperation() {
         int index = NumberRandom.generate(0, hardOperations.size());
         switch (hardOperations.get(index)) {
             case Sum3Operation:
@@ -63,7 +82,6 @@ public class QuestionsGenerator {
                 throw new IllegalArgumentException("Hard operation not supported");
         }
     }
-
 
     private Sum2Operation generateSum2Operation(int minNumber1, int maxNumber1, int minNumber2, int maxNumber2) {
         return new Sum2Operation(NumberRandom.generate(minNumber1, maxNumber1), NumberRandom.generate(minNumber2, maxNumber2));
