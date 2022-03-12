@@ -16,6 +16,9 @@ import fr.michelgrosjean.calculus.model.Sum2Operation;
 import fr.michelgrosjean.calculus.model.Sum3Operation;
 
 public class QuestionsGenerator {
+    /*
+     I create 3 list of operation that contains type of operation to generate questions based on difficulty.
+     */
     private final List<Operation.Type> easyOperations = new ArrayList<>(Arrays.asList(Operation.Type.Sum2Operation, Operation.Type.Substraction2PositiveOperation));
     private final List<Operation.Type> mediumOperations = new ArrayList<>(Arrays.asList(Operation.Type.Sum3Operation, Operation.Type.Multiply2Operation, Operation.Type.Substraction2NegativeOperation));
     private final List<Operation.Type> hardOperations = new ArrayList<>(Arrays.asList(Operation.Type.Sum3Operation, Operation.Type.Multiply2Operation, Operation.Type.Divide2Operation));
@@ -38,7 +41,10 @@ public class QuestionsGenerator {
         }
         return operations;
     }
-
+/*
+ I choose to create 3 functions generateEasy, generateMedium and generateHardOperation to make the code clearer
+ I use a random value to pick an operation type in the list of easyOperation
+ */
     private Operation generateEasyOperation() {
         int index = NumberRandom.generate(0, easyOperations.size());
         switch (easyOperations.get(index)) {

@@ -1,21 +1,28 @@
 package fr.michelgrosjean.calculus.ui;
 
+import static androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_FADE;
+
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import fr.michelgrosjean.calculus.R;
 import fr.michelgrosjean.calculus.model.Difficulty;
 
 public class RulesAndDifficultFragment extends Fragment implements View.OnClickListener {
-    private Button easyDifficulty, mediumDifficulty, hardDifficulty;
 
-    public RulesAndDifficultFragment(){
-        super(R.layout.rules_and_difficult_choice_fragment);
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.rules_and_difficult_choice_fragment, container, false);
     }
 
     @Override
@@ -24,6 +31,7 @@ public class RulesAndDifficultFragment extends Fragment implements View.OnClickL
     }
 
     private void initButton(View view){
+        Button easyDifficulty, mediumDifficulty, hardDifficulty;
         easyDifficulty = view.findViewById(R.id.btn_easy);
         mediumDifficulty = view.findViewById(R.id.btn_medium);
         hardDifficulty = view.findViewById(R.id.btn_hard);
@@ -51,6 +59,7 @@ public class RulesAndDifficultFragment extends Fragment implements View.OnClickL
         getParentFragmentManager().beginTransaction()
                 .setReorderingAllowed(true)
                 .replace(R.id.fragment_container_view, QuestionFragment.class, arguments, "DIFFICULTY")
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .commit();
     }
 }

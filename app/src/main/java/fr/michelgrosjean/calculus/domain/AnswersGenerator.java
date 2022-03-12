@@ -31,7 +31,10 @@ public class AnswersGenerator {
         Collections.shuffle(answers);
         return answers;
     }
-
+/*
+    I use a loop with interval to avoid to use a random number.
+    The 1th argument is based on the result but we can imagine increment only the first operands
+ */
     private List<Integer> numberGenerator(int number, int interval, boolean allowNegativeValue) {
         List<Integer> numbers = new ArrayList<>();
         do {
