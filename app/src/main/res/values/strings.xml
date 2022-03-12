@@ -9,4 +9,7 @@
     <string name="medium">MOYEN</string>
     <string name="difficult">DIFFICILE</string>
     <string name="sampleOperation">11 + 9 = ?</string>
+    <string name="retry">REJOUER</string>
+    <string name="quit">QUITTER</string>
+    <string name="score">SCORE</string>
 </resources>
